@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protokół z Testów - INF.04</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background-color: #f8fafc;
+        }
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        h1 {
+            color: #1e3a8a;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 12px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #1e40af;
+            margin-top: 25px;
+        }
+        h3 {
+            color: #374151;
+        }
+        .meta-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .meta-box p {
+            margin: 6px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #1e40af;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .status-pass {
+            background-color: #dcfce7;
+            color: #166534;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            text-align: center;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+            background: #e2e8f0;
+            color: #334155;
+        }
+        .summary-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+        @media print {
+            body { background: white; margin: 0; padding: 0; }
+            .container { box-shadow: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Protokół z Testów Aplikacji Okienkowej</h1>
+    <p><strong>Kwalifikacja:</strong> INF.04 &ndash; Projektowanie, programowanie i testowanie aplikacji</p>
+    <p><strong>Temat zadania:</strong> Refaktoryzacja do MVC, Kontrola Wersji (Git) oraz Dokumentacja i Testy</p>
+
+    <div class="meta-box">
+        <p><strong>Aplikacja:</strong> System Ewidencji Pracowników (Desktop Java Swing)</p>
+        <p><strong>Wersja:</strong> v1.0.0 (Wzorzec MVC)</p>
+        <p><strong>Baza Danych:</strong> SQLite / JDBC PreparedStatement</p>
+        <p><strong>Data testów:</strong> 19 listopada 2026 r.</p>
+        <p><strong>Status weryfikacji:</strong> <span class="status-pass">ZALICZONY (5/5 POZYTYWNYCH)</span></p>
+    </div>
+
+    <h2>1. Zestawienie Przypadków Testowych</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 7%;">ID</th>
+                <th style="width: 20%;">Nazwa testu</th>
+                <th style="width: 20%;">Dane wejściowe</th>
+                <th style="width: 23%;">Kroki testowe</th>
+                <th style="width: 20%;">Oczekiwany rezultat</th>
+                <th style="width: 10%;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>TC-01</strong></td>
+                <td><strong>Prawidłowe dodanie rekordu (Happy Path)</strong></td>
+                <td>
+                    Imię: <code>Tomasz</code><br>
+                    Nazwisko: <code>Zieliński</code><br>
+                    Stanowisko: <code>Programista</code><br>
+                    Wynagrodzenie: <code>8200.00</code>
+                </td>
+                <td>
+                    1. Wprowadź dane do formularza.<br>
+                    2. Kliknij przycisk <em>"Dodaj pracownika"</em>.
+                </td>
+                <td>Komunikat o sukcesie, wyczyszczenie formularza, dodanie wiersza do tabeli JTable.</td>
+                <td><span class="status-pass">POZYTYWNY</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-02</strong></td>
+                <td><strong>Walidacja pustych pól i błędnego imienia/nazwiska</strong></td>
+                <td>
+                    Imię: <em>(puste)</em><br>
+                    Nazwisko: <code>Nowak123</code><br>
+                    Stanowisko: <code>Tester</code><br>
+                    Wynagrodzenie: <code>5000</code>
+                </td>
+                <td>
+                    1. Pozostaw puste pole imienia.<br>
+                    2. Wpisz cyfry w nazwisku.<br>
+                    3. Kliknij <em>"Dodaj pracownika"</em>.
+                </td>
+                <td>Blokada zapisu, komunikat błędu (JOptionPane), podświetlenie na pasku stanu.</td>
+                <td><span class="status-pass">POZYTYWNY</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-03</strong></td>
+                <td><strong>Walidacja kwoty wynagrodzenia (nieliczbowa i ujemna)</strong></td>
+                <td>
+                    Imię: <code>Ewa</code><br>
+                    Nazwisko: <code>Majewska</code><br>
+                    Stanowisko: <code>Analityk IT</code><br>
+                    Wynagrodzenie: <code>minus sto</code> oraz <code>-500.00</code>
+                </td>
+                <td>
+                    1. Wpisz tekst w polu wynagrodzenia i zatwierdź.<br>
+                    2. Wpisz wartość ujemną i zatwierdź.
+                </td>
+                <td>Komunikat o konieczności podania dodatniej liczby, brak modyfikacji bazy danych.</td>
+                <td><span class="status-pass">POZYTYWNY</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-04</strong></td>
+                <td><strong>Usunięcie zaznaczonego pracownika</strong></td>
+                <td>Zaznaczony wiersz w tabeli (ID = 1)</td>
+                <td>
+                    1. Zaznacz rekord w tabeli.<br>
+                    2. Kliknij <em>"Usuń zaznaczonego"</em>.<br>
+                    3. Potwierdź dialogiem YES.
+                </td>
+                <td>Wyświetlenie okna dialogowego potwierdzenia, usunięcie rekordu z bazy, odświeżenie tabeli.</td>
+                <td><span class="status-pass">POZYTYWNY</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-05</strong></td>
+                <td><strong>Próba usunięcia bez zaznaczenia wiersza</strong></td>
+                <td>Brak zaznaczonego wiersza</td>
+                <td>
+                    1. Upewnij się, że żaden wiersz nie jest podświetlony.<br>
+                    2. Kliknij <em>"Usuń zaznaczonego"</em>.
+                </td>
+                <td>Komunikat ostrzegawczy informujący o konieczności wybrania pracownika z tabeli.</td>
+                <td><span class="status-pass">POZYTYWNY</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="summary-box">
+        <h3>2. Podsumowanie Wyników Testów</h3>
+        <p>Podczas testów funkcjonalnych i walidacyjnych zweryfikowano pełną separację warstw MVC:</p>
+        <ul>
+            <li><strong>Widok (View):</strong> Prawidłowo prezentuje komponenty GUI oraz reaguje na akcje użytkownika.</li>
+            <li><strong>Kontroler (Controller):</strong> Skutecznie przechwytuje zdarzenia, blokuje niepoprawne dane wejściowe przed dotarciem do modelu.</li>
+            <li><strong>Model (Model):</strong> Poprawnie wykonuje zapytania sparametryzowane SQL bez występowania wyjątków.</li>
+        </ul>
+        <p><strong>Wskaźnik zaliczenia: 100% (5/5 przypadków pozytywnych). Aplikacja jest gotowa do wdrożenia.</strong></p>
+    </div>
+</div>
+</body>
+</html>
